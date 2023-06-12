@@ -24,6 +24,8 @@ import {
 import { LoginImg, SignUpImg } from "../../constants/Images";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import api, { appwriteAccount } from "../../services/appwriteConfig";
+import { ID } from "appwrite";
 
 const SignInAndSignUp = () => {
   const navigate = useNavigate();
@@ -275,11 +277,12 @@ const SignUpForm = ({
       return alert("Please enter username, email and password");
     }
 
-    dispatch(registerInitiate(email, password, username));
-    dispatch(loginInitiate(email, password));
-    setUsername("");
-    setEmail("");
-    setPassword("");
+    api.createAccount(email, password, username);
+    // dispatch(registerInitiate(email, password, username));
+    // dispatch(loginInitiate(email, password));
+    // setUsername("");
+    // setEmail("");
+    // setPassword("");
   };
 
   return (
