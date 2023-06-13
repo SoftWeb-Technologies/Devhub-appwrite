@@ -24,6 +24,8 @@ import {
 import { LoginImg, SignUpImg } from "../../constants/Images";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import api, { appwriteAccount } from "../../services/appwriteConfig";
+import { ID } from "appwrite";
 
 const SignInAndSignUp = () => {
   const navigate = useNavigate();
@@ -268,18 +270,21 @@ const SignUpForm = ({
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleCreateAccount = (e) => {
+  const handleCreateAccount = async (e) => {
     e.preventDefault();
 
     if (!username || !password || !email) {
       return alert("Please enter username, email and password");
     }
 
-    dispatch(registerInitiate(email, password, username));
-    dispatch(loginInitiate(email, password));
-    setUsername("");
-    setEmail("");
-    setPassword("");
+    const res = await api.createAccount(email, password, username);
+
+    console.log(res);
+    // dispatch(registerInitiate(email, password, username));
+    // dispatch(loginInitiate(email, password));
+    // setUsername("");
+    // setEmail("");
+    // setPassword("");
   };
 
   return (
