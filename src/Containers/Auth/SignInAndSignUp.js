@@ -270,14 +270,16 @@ const SignUpForm = ({
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleCreateAccount = (e) => {
+  const handleCreateAccount = async (e) => {
     e.preventDefault();
 
     if (!username || !password || !email) {
       return alert("Please enter username, email and password");
     }
 
-    api.createAccount(email, password, username);
+    const res = await api.createAccount(email, password, username);
+
+    console.log(res);
     // dispatch(registerInitiate(email, password, username));
     // dispatch(loginInitiate(email, password));
     // setUsername("");
